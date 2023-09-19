@@ -7,5 +7,8 @@ module.exports = function (defaults) {
     // Add options here
   });
 
+  app.import('node_modules/material-design-lite/dist/material.min.js');
+  app.import('node_modules/material-design-lite/dist/material.min.css');
+
   return app.toTree();
 };
