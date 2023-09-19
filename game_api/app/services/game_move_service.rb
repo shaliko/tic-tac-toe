@@ -45,27 +45,14 @@ class GameMoveService
   end
 
   def check_current_symbol
-    return @game.current_symbol != player_symbol
+    return if @game.current_symbol == player_symbol
 
     @game.errors.add(:base, "It's not your turn")
   end
 
   def check_coordinates
-    return if @game.state[@row][@col].blank?
+    return if @game.state.dig(@row, @col).blank?
 
     @game.errors.add(:base, "Invalid move coordinates, already taken")
   end
-
-
-  # def current_symbol
-  #   values = state.values.flat_map {|row| row.values }.compact
-
-  #   return @game.initial_symbol if values.size == 0
-
-  #   moves = values.reduce(Hash.new(0)) {|acc, cur| acc[cur] += 1; acc }
-
-  #   return @game.initial_symbol if moves[Game::GAME_SYMBOLS[0]] == moves[Game::GAME_SYMBOLS[1]]
-
-  #   return moves.min[0]
-  # end
 end
