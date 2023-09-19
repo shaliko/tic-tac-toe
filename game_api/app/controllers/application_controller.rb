@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Base class for all controllers (our case all controllers are API controllers)
 class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   rescue_from ActionController::ParameterMissing, with: :parameter_missing
