@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -5,7 +7,7 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   namespace :api do
-    resources :games, only: [:show, :create] do
+    resources :games, only: %i[show create] do
       resources :moves, only: [:create]
     end
   end

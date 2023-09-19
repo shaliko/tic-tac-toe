@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "GameMoves API", type: :request do
+RSpec.describe 'GameMoves API', type: :request do
   let(:game) { FactoryBot.create(:game) }
 
-  describe "POST /api/games/:game_id/moves" do
-    context "with a valid move" do
+  describe 'POST /api/games/:game_id/moves' do
+    context 'with a valid move' do
       let(:valid_params) do
         {
           row: rand(3).to_s,
@@ -13,10 +15,10 @@ RSpec.describe "GameMoves API", type: :request do
         }
       end
 
-      it "creates a new move" do
+      it 'creates a new move' do
         # Validate that GameMoveService was called with specific params
         expect(GameMoveService).to receive(:new).with(
-          game: game,
+          game:,
           row: valid_params[:row],
           col: valid_params[:col],
           player_token: game.player1_token
@@ -27,7 +29,7 @@ RSpec.describe "GameMoves API", type: :request do
         expect(response).to have_http_status(201)
       end
 
-      it "responses with game model" do
+      it 'responses with game model' do
         post api_game_moves_path(game), params: valid_params
 
         expect(response).to have_http_status(201)
@@ -37,8 +39,8 @@ RSpec.describe "GameMoves API", type: :request do
       end
     end
 
-    context "with an invalid move" do
-      context "when row param missed" do
+    context 'with an invalid move' do
+      context 'when row param missed' do
         let(:invalid_params) do
           {
             col: rand(3).to_s,
@@ -46,18 +48,19 @@ RSpec.describe "GameMoves API", type: :request do
           }
         end
 
-        it "returns status code 400 and error message" do
+        it 'returns status code 400 and error message' do
           post api_game_moves_path(game), params: invalid_params
 
           expect(response).to have_http_status(400)
 
           expect(json_response).to eq({
-            "error"=>{"message"=>"param is missing or the value is empty: row", "type"=>"ParameterMissing"}
-          })
+                                        'error' => { 'message' => 'param is missing or the value is empty: row',
+                                                     'type' => 'ParameterMissing' }
+                                      })
         end
       end
 
-      context "when col param missed" do
+      context 'when col param missed' do
         let(:invalid_params) do
           {
             row: rand(3).to_s,
@@ -65,18 +68,19 @@ RSpec.describe "GameMoves API", type: :request do
           }
         end
 
-        it "returns status code 400 error message" do
+        it 'returns status code 400 error message' do
           post api_game_moves_path(game), params: invalid_params
 
           expect(response).to have_http_status(400)
 
           expect(json_response).to eq({
-            "error"=>{"message"=>"param is missing or the value is empty: col", "type"=>"ParameterMissing"}
-          })
+                                        'error' => { 'message' => 'param is missing or the value is empty: col',
+                                                     'type' => 'ParameterMissing' }
+                                      })
         end
       end
 
-      context "when col param missed" do
+      context 'when col param missed' do
         let(:invalid_params) do
           {
             row: rand(3).to_s,
@@ -84,18 +88,20 @@ RSpec.describe "GameMoves API", type: :request do
           }
         end
 
-        it "returns status code 400 error message" do
+        it 'returns status code 400 error message' do
           post api_game_moves_path(game), params: invalid_params
 
           expect(response).to have_http_status(400)
 
           expect(json_response).to eq({
-            "error"=>{"message"=>"param is missing or the value is empty: player_token", "type"=>"ParameterMissing"}
-          })
+                                        'error' => {
+                                          'message' => 'param is missing or the value is empty: player_token', 'type' => 'ParameterMissing'
+                                        }
+                                      })
         end
       end
 
-      context "when wrong user turn" do
+      context 'when wrong user turn' do
         let(:invalid_params) do
           {
             row: rand(3).to_s,
@@ -104,14 +110,15 @@ RSpec.describe "GameMoves API", type: :request do
           }
         end
 
-        it "returns status code 422 and error message" do
+        it 'returns status code 422 and error message' do
           post api_game_moves_path(game), params: invalid_params
 
           expect(response).to have_http_status(422)
 
           expect(json_response).to eq({
-            "error"=>{"message"=>"Validation failed", "type"=>"ValidationError", "details"=>["It's not your turn"]}
-          })
+                                        'error' => { 'message' => 'Validation failed', 'type' => 'ValidationError',
+                                                     'details' => ["It's not your turn"] }
+                                      })
         end
       end
     end

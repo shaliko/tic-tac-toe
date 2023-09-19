@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe GameMoveService do
   let(:game) { FactoryBot.create(:game) }
-  
+
   describe '#move!' do
     context 'with a valid move' do
       it 'updates the game state' do
-        service = GameMoveService.new(game: game, row: 1, col: 1, player_token: game.player1_token)
+        service = GameMoveService.new(game:, row: 1, col: 1, player_token: game.player1_token)
 
         expect(service.move!).to be_truthy
 
@@ -14,7 +16,7 @@ RSpec.describe GameMoveService do
       end
 
       it 'updates the game current_symbol after move' do
-        service = GameMoveService.new(game: game, row: 1, col: 1, player_token: game.player1_token)
+        service = GameMoveService.new(game:, row: 1, col: 1, player_token: game.player1_token)
 
         expect(service.move!).to be_truthy
 
@@ -26,7 +28,7 @@ RSpec.describe GameMoveService do
       context 'when wrong user turn' do
         it 'does not update the game state and returns error' do
           original_state = game.state
-          service = GameMoveService.new(game: game, row: 1, col: 1, player_token: game.player2_token)
+          service = GameMoveService.new(game:, row: 1, col: 1, player_token: game.player2_token)
 
           expect(service.move!).to be_falsy
 
@@ -40,12 +42,12 @@ RSpec.describe GameMoveService do
       context 'when row and call out of boundaries' do
         it 'does not update the game state and returns error' do
           original_state = game.state
-          service = GameMoveService.new(game: game, row: 3, col: 3, player_token: game.player1_token)
+          service = GameMoveService.new(game:, row: 3, col: 3, player_token: game.player1_token)
 
           expect(service.move!).to be_falsy
 
           expect(service.game.errors.size).to eq(1)
-          expect(service.game.errors[:base]).to include("Invalid move coordinates")
+          expect(service.game.errors[:base]).to include('Invalid move coordinates')
 
           expect(original_state).to eq(game.reload.state)
         end
@@ -57,12 +59,12 @@ RSpec.describe GameMoveService do
           game.save!
           original_state = game.state
 
-          service = GameMoveService.new(game: game, row: 1, col: 1, player_token: game.player1_token)
+          service = GameMoveService.new(game:, row: 1, col: 1, player_token: game.player1_token)
 
           expect(service.move!).to be_falsy
 
           expect(service.game.errors.size).to eq(1)
-          expect(service.game.errors[:base]).to include("Invalid move coordinates, already taken")
+          expect(service.game.errors[:base]).to include('Invalid move coordinates, already taken')
 
           expect(original_state).to eq(game.reload.state)
         end

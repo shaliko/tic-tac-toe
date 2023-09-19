@@ -14,3 +14,24 @@ Metrics/MethodLength:
 
 Metrics/AbcSize:
   Max: 20
+
+Metrics/BlockLength:
+  Exclude:
+   - 'spec/**/*'
+
+Layout/LineLength:
+  Exclude:
+    - 'spec/**/*'
+    - bin/bundle
+
+Style/Documentation:
+  Exclude:
+    - 'db/migrate/**/*'
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - bin/bundle
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - bin/bundle

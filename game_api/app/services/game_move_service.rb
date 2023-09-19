@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
+# GameMoveService for creating moves
+# Validates and update Game model
 class GameMoveService
   attr_reader :game
 
-  def initialize(game: , row: , col:, player_token:)
+  def initialize(game:, row:, col:, player_token:)
     @game = game
     @row = row.to_s
     @col = col.to_s
@@ -15,7 +19,7 @@ class GameMoveService
     @game.current_symbol = ::Game::SYMBOLS[0] == @game.current_symbol ? ::Game::SYMBOLS[1] : ::Game::SYMBOLS[0]
     @game.save!
 
-    return true
+    true
   end
 
   private
@@ -26,7 +30,7 @@ class GameMoveService
     elsif @game.player2_token == @player_token
       @game.player2_symbol
     else
-      raise "Invalid player token"
+      raise 'Invalid player token'
     end
   end
 
@@ -39,9 +43,9 @@ class GameMoveService
   end
 
   def check_boundaries
-    return unless @row.to_i < 0 || @row.to_i > 2 || @col.to_i < 0 || @col.to_i > 2
-    
-    @game.errors.add(:base, "Invalid move coordinates")
+    return unless @row.to_i.negative? || @row.to_i > 2 || @col.to_i.negative? || @col.to_i > 2
+
+    @game.errors.add(:base, 'Invalid move coordinates')
   end
 
   def check_current_symbol
@@ -53,6 +57,6 @@ class GameMoveService
   def check_coordinates
     return if @game.state.dig(@row, @col).blank?
 
-    @game.errors.add(:base, "Invalid move coordinates, already taken")
+    @game.errors.add(:base, 'Invalid move coordinates, already taken')
   end
 end
