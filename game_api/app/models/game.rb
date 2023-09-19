@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Game model with validations and initial state
 class Game < ApplicationRecord
   SYMBOLS = %w[x o].freeze
 
