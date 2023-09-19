@@ -2,10 +2,10 @@ class Api::GamesController < ApplicationController
   def create
     game = Game.new
     
-    if @game.save
-      render json: @game, status: :created
+    if game.save
+      render json: game, status: :created
     else
-      render json: @game.errors, status: :unprocessable_entity
+      render json: { error: { message: 'Validation failed', type: 'ValidationError', details: game.errors.full_messages } }, status: :unprocessable_entity
     end
   end
 
