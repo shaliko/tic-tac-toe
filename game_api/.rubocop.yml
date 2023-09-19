@@ -35,3 +35,4 @@ Metrics/PerceivedComplexity:
 Metrics/CyclomaticComplexity:
   Exclude:
     - bin/bundle
+

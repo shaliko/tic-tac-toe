@@ -17,12 +17,41 @@ class GameMoveService
 
     @game.state[@row][@col] = player_symbol
     @game.current_symbol = ::Game::SYMBOLS[0] == @game.current_symbol ? ::Game::SYMBOLS[1] : ::Game::SYMBOLS[0]
-    @game.save!
-
-    true
+    @game.winner = winner
+    @game.save
   end
 
   private
+
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
+  def winner
+    state = @game.state
+
+    # Check rows & columns
+    3.times do |index|
+      i = index.to_s
+      return state[i]['0'] if state[i]['0'] == state[i]['1'] && state[i]['1'] == state[i]['2'] && state[i]['0'].present?
+      return state['0'][i] if state['0'][i] == state['1'][i] && state['1'][i] == state['2'][i] && state['0'][i].present?
+    end
+
+    # Check diagonals
+    if state['0']['0'] == state['1']['1'] && state['1']['1'] == state['2']['2'] && state['0']['0'].present?
+      return state['0']['0']
+    end
+    if state['0']['2'] == state['1']['1'] && state['1']['1'] == state['2']['0'] && state['0']['2'].present?
+      return state['0']['2']
+    end
+
+    return '=' if state.values.none? { |row| row.values.include?(nil) }
+
+    # no winner
+    nil
+  end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
 
   def player_symbol
     if @game.player1_token == @player_token
@@ -35,11 +64,18 @@ class GameMoveService
   end
 
   def valid_move?
+    check_game_ended
     check_boundaries
     check_current_symbol
     check_coordinates
 
     @game.errors.blank?
+  end
+
+  def check_game_ended
+    return unless @game.winner.present?
+
+    @game.errors.add(:base, 'Game already finished')
   end
 
   def check_boundaries

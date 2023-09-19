@@ -3,8 +3,17 @@
 # Game model with validations and initial state
 class Game < ApplicationRecord
   SYMBOLS = %w[x o].freeze
+  WINNER_SYMBOLS = (SYMBOLS + ['=']).freeze
 
   before_validation :initial_state, on: :create
+
+  validates :player1_token, :player2_token, presence: true
+
+  validates :current_symbol, inclusion: { in: SYMBOLS, message: "must be either 'x' or 'o'" }
+  validates :player1_symbol, inclusion: { in: SYMBOLS, message: "must be either 'x' or 'o'" }
+  validates :player2_symbol, inclusion: { in: SYMBOLS, message: "must be either 'x' or 'o'" }
+
+  validates :winner, inclusion: { in: WINNER_SYMBOLS, message: "must be either 'x', 'o' or '='" }, allow_nil: true
 
   private
 

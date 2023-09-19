@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_230_919_092_235) do
+ActiveRecord::Schema[7.0].define(version: 20_230_919_140_350) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -25,5 +25,6 @@ ActiveRecord::Schema[7.0].define(version: 20_230_919_092_235) do
     t.string 'current_symbol', limit: 1, null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.string 'winner', limit: 1
   end
 end
