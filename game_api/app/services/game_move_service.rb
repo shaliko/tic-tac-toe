@@ -12,7 +12,7 @@ class GameMoveService
     return false unless valid_move?
 
     @game.state[@row][@col] = player_symbol
-    @game.current_symbol = ::Game::GAME_SYMBOLS[0] == @game.current_symbol ? ::Game::GAME_SYMBOLS[1] : ::Game::GAME_SYMBOLS[0]
+    @game.current_symbol = ::Game::SYMBOLS[0] == @game.current_symbol ? ::Game::SYMBOLS[1] : ::Game::SYMBOLS[0]
     @game.save!
 
     return true
