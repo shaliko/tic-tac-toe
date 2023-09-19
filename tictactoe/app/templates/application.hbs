@@ -1,7 +1,8 @@
 {{page-title "Tic Tac Toe"}}
 
 <MdlLayout @title="Tic Tac Toe">
-  <p class="margin-top-30">This content is centralized using MDL's grid system.</p>
-</MdlLayout>
+  <button type="button" {{on "click" this.createGame}}>Click Me</button>
 
-{{outlet}}
+  <p class="margin-top-30">This content is centralized using MDL's grid system.</p>
+  {{outlet}}
+</MdlLayout>
