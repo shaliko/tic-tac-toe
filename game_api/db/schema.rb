@@ -15,10 +15,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_19_092235) do
   enable_extension "plpgsql"
 
   create_table "games", force: :cascade do |t|
-    t.json "state"
-    t.string "player1_token"
-    t.string "player2_token"
-    t.string "initial_symbol", limit: 1
+    t.json "state", null: false
+    t.string "player1_token", null: false
+    t.string "player2_token", null: false
+    t.string "player1_symbol", limit: 1, null: false
+    t.string "player2_symbol", limit: 1, null: false
+    t.string "current_symbol", limit: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

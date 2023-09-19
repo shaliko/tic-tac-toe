@@ -11,7 +11,9 @@ class Game < ApplicationRecord
       1 => { 0 => nil, 1 => nil, 2 => nil },
       2 => { 0 => nil, 1 => nil, 2 => nil }
     }
-    self.initial_symbol = GAME_SYMBOLS.sample
+    self.current_symbol = GAME_SYMBOLS.sample
+    self.player1_symbol = current_symbol
+    self.player2_symbol = GAME_SYMBOLS[0] == current_symbol ? GAME_SYMBOLS[1] : GAME_SYMBOLS[0]
     self.player1_token = SecureRandom.urlsafe_base64
     self.player2_token = SecureRandom.urlsafe_base64
   end
