@@ -11,7 +11,7 @@ services:
     environment:
       DATABASE_URL: postgres://postgres:password@db:5432
       APP_HOST: localhost:3000
-      RAILS_ENV: production
+      RAILS_ENV: development
     volumes:
       - .:/myapp
     ports:
