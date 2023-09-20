@@ -1,4 +1,3 @@
 {{page-title (concat "Game ID: " @model.game.id)}}
 
-<h1>Game {{this.token}}</h1>
-{{outlet}}
+<GameBoard @board={{@model.game.state}} @onMove={{this.handleMove}}/>

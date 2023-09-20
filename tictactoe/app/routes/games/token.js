@@ -10,6 +10,8 @@ export default class GamesTokenRoute extends Route {
 
     let game = await this.store.findRecord('game', gameId);
 
+    console.log(game);
+
     return { game, token };
   }
 }

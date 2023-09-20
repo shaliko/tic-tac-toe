@@ -1,0 +1,19 @@
+<div class="gameBoard">
+    {{#each-in @board as |rowIndex rowValue|}}
+      {{#each-in rowValue as |columnIndex cell|}}
+        <div class="gameBoardTile">
+          {{#if cell}}
+            {{cell}}
+          {{else}}
+            <button
+              type="button"
+              class="mdl-button mdl-js-button gameBoardTileButton"
+              {{on "click" (fn this.handleMove rowIndex columnIndex)}}
+            >
+              {{cell}}
+            </button>
+          {{/if}}
+        </div>
+      {{/each-in}}
+    {{/each-in}}
+</div>
