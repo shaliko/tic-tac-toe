@@ -14,8 +14,11 @@
 - cd tic-tac-toe/game_api
 - docker-compose up
 
-
 API app will be started on port 3000 (http://localhost:3000/)
+
+#### Run backend tests
+
+- `docker-compose run web bundle exec rspec`
 
 
 ### Frontend Setup (EmberJS)
