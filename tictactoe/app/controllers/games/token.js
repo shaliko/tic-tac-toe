@@ -23,7 +23,7 @@ export default class GamesTokenController extends Controller {
   }
 
   get shareUrl() {
-    return `http://localhost:4200/games/${this.game.id}/token/${this.game.player2_token}`
+    return `http://localhost:4200/games/${this.game.id}/token/${this.game.player2_token}`;
   }
 
   @action

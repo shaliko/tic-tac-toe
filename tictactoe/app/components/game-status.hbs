@@ -1,0 +1,8 @@
+<div class="gameStatusComponent">
+    <div>You're team "{{this.yourSymbol}}"! Let's see if you can secure a win.</div>
+    {{#if this.showWinner}}
+      <h3>Game finished: {{this.winnerText}}</h3>
+    {{else}}
+      <div><strong>Next Turn:</strong> "{{this.nextTurnSymbol}}"</div>
+    {{/if}}
+</div>

@@ -1,5 +1,7 @@
 {{page-title (concat "Game ID: " @model.game.id)}}
 
+<GameStatus @game={{@model.game}} @currentPlayerToken={{this.token}} />
+
 <GameBoard @board={{@model.game.state}} @onMove={{this.handleMove}}/>
 
 {{#if this.showShareUrl}}
