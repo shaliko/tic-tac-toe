@@ -2,7 +2,7 @@
 
 <GameStatus @game={{@model.game}} @currentPlayerToken={{this.token}} />
 
-<GameBoard @board={{@model.game.state}} @onMove={{this.handleMove}}/>
+<GameBoard @game={{@model.game}} @currentPlayerToken={{this.token}} @onMove={{this.handleMove}}/>
 
 {{#if this.showShareUrl}}
   <ShareUrl @url="{{this.shareUrl}}" />

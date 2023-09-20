@@ -1,10 +1,11 @@
 <div class="gameBoard">
-    {{#each-in @board as |rowIndex rowValue|}}
-      {{#each-in rowValue as |columnIndex cell|}}
-        <div class="gameBoardTile">
-          {{#if cell}}
-            {{cell}}
-          {{else}}
+  {{#each-in this.board as |rowIndex rowValue|}}
+    {{#each-in rowValue as |columnIndex cell|}}
+      <div class="gameBoardTile">
+        {{#if cell}}
+          {{cell}}
+        {{else}}
+          {{#if this.isMyTurn}}
             <button
               type="button"
               class="mdl-button mdl-js-button gameBoardTileButton"
@@ -12,8 +13,11 @@
             >
               {{cell}}
             </button>
+          {{else}}
+            {{cell}}
           {{/if}}
-        </div>
-      {{/each-in}}
+        {{/if}}
+      </div>
     {{/each-in}}
+  {{/each-in}}
 </div>
